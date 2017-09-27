@@ -2,19 +2,13 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import Results from './components/Results'
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      boro: null,
-      casetype: null,
-      casestatus: null,
-      caseopendate: null,
-      housenumber: null,
-      streetname: null,
-      zip: null,
-      casejudgement: null,
+      data: null,
       value: "",
       apiDataLoaded: false,
     }
@@ -32,14 +26,22 @@ class App extends Component {
     axios.get(`https://data.cityofnewyork.us/resource/kfyu-46k5.json?$where= 
     housenumber= "${housenum}" AND streetname= "${streetname}" AND zip= "${zip}"`)
     .then(res => {
-      res.data.forEach((result) => {
+      res.data.map((info) => {
         this.setState({
-          housenumber: result.housenumber,
-          street: result.streetname,
+          house: info.housenumber,
           apiDataLoaded: true,
         })
+        
       })
     })
+  }
+
+  renderResults() {
+    if(this.state.apiDataLoaded) {
+      return <Results house={this.state.house} />
+    } else {
+      return <p>Loading...</p>
+    }
   }
 
 
@@ -58,8 +60,7 @@ class App extends Component {
           this.getInfo(house, street, zip)
           }}>Search
         </button>
-        <div>{this.state.housenumber}</div>
-        <p>{this.state.street}</p>
+        {this.renderResults()}
       </div>
     );
   }
