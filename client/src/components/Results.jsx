@@ -9,15 +9,17 @@ class Results extends Component {
 
         return(
             <div className="search_results">
-                <div>Results for: {house} {street} {this.props.data[0].boro}, NY {zip}</div>
-                {this.props.data.map(x => {
+                <div>Results for: {house} {street} {zip}</div>
+                <h2>HPD Housing Maintenance Code - Open Violations: {this.props.data.length}</h2>
+                <h2>Emergency Repair Orders - Open Orders: {this.props.omoData.length}</h2>
+                {/* {this.props.data.map(x => {
                     if (x.violationstatus === 'Open') {
                     return <div key={x.violationid}>
-                    <h6>{x.violationstatus}</h6>
+                    <h5>{new Date(x.novissueddate).toDateString()}</h5>
                     <h6>{x.novdescription}</h6>
                     </div>
                     }
-                })}
+                })} */}
             </div>
         )
     }
