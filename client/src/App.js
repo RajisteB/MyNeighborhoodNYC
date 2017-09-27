@@ -23,9 +23,10 @@ class App extends Component {
   }
 
   getInfo(housenum, streetname, zip) {
-    axios.get(`https://data.cityofnewyork.us/resource/kfyu-46k5.json?$where= 
+    axios.get(`https://data.cityofnewyork.us/resource/b2iz-pps8.json?$where= 
     housenumber= "${housenum}" AND streetname= "${streetname}" AND zip= "${zip}"`)
     .then(res => {
+      console.log(res)
         this.setState({
           data: res.data,
           apiDataLoaded: true,

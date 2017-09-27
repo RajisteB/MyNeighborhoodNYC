@@ -6,10 +6,7 @@ class Results extends Component {
             <div className="search_results">
                 Results component
                 {this.props.data.map(x => {
-                    return (
-                        <div>{x.housenumber}</div>
-                        <div>{}</div>
-                        )
+                    return <h4>{x.novdescription}</h4>
                 })}
             </div>
         )
