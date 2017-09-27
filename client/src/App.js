@@ -26,19 +26,16 @@ class App extends Component {
     axios.get(`https://data.cityofnewyork.us/resource/kfyu-46k5.json?$where= 
     housenumber= "${housenum}" AND streetname= "${streetname}" AND zip= "${zip}"`)
     .then(res => {
-      res.data.map((info) => {
         this.setState({
-          house: info.housenumber,
+          data: res.data,
           apiDataLoaded: true,
         })
-        
-      })
     })
   }
 
   renderResults() {
     if(this.state.apiDataLoaded) {
-      return <Results house={this.state.house} />
+      return <Results data={this.state.data}/>
     } else {
       return <p>Loading...</p>
     }

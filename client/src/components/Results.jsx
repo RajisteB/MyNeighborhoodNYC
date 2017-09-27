@@ -5,7 +5,12 @@ class Results extends Component {
         return(
             <div className="search_results">
                 Results component
-                {this.props.house}
+                {this.props.data.map(x => {
+                    return (
+                        <div>{x.housenumber}</div>
+                        <div>{}</div>
+                        )
+                })}
             </div>
         )
     }
