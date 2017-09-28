@@ -16,6 +16,8 @@ class App extends Component {
     this.state = {
       data: null,
       value: "",
+      omoData: "",
+      litData: "",
       apiDataLoaded: false,
     }
     this.handleChange = this.handleChange.bind(this);
@@ -42,16 +44,25 @@ class App extends Component {
       .then(res => {
         this.setState({
           omoData: res.data,
-          apiDataLoaded: true,
         })
       })
+      .then(
+        axios.get(`https://data.cityofnewyork.us/resource/kfyu-46k5.json?$where= casestatus= "PENDING" AND housenumber= "${housenum}"
+        AND streetname= "${streetname}" AND zip="${zip}"&$order= caseopendate DESC `)
+        .then(res => {
+          this.setState({
+            litData: res.data,
+            apiDataLoaded: true,
+          })
+        })
+      )
     )
   }
 
 
   renderResults() {
     if(this.state.apiDataLoaded) {
-      return <Results  data={this.state.data} omoData={this.state.omoData}/>
+      return <Results  data={this.state.data} omoData={this.state.omoData} litData={this.state.litData}/>
     } else {
       return <p>Loading...</p>
     }
@@ -64,9 +75,9 @@ class App extends Component {
       <Router>
         <div className="App">
         Testing...
-          <input id="houseinput" type="text" placeholder="Bldg #"/>
-          <input id="streetname" type="text" placeholder="Streetname"/>
-          <input id="zip" type="text" placeholder="Zipcode"/>
+          <input id = "houseinput" type = "text" placeholder = "Bldg #"/>
+          <input id = "streetname" type = "text" placeholder = "Streetname"/>
+          <input id = "zip" type        = "text" placeholder = "Zipcode"/>
           <button onClick={ () => {
             var house = document.getElementById('houseinput').value;
             var street = document.getElementById('streetname').value.toUpperCase();
