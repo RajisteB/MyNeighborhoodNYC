@@ -13,6 +13,7 @@ class Results extends Component {
                 <h2>HPD Housing Maintenance Code - Open Violations: {this.props.data? this.props.data.length : 0}</h2>
                 <h2>Emergency Repair Orders - Open Orders: {this.props.omoData.length}</h2>
                 <h2>HUD - Pending Litigations: {this.props.litData.length}</h2>
+                <h2>311 Service Requests: {this.props.nycData.length}</h2>
             </div>
         )
     }

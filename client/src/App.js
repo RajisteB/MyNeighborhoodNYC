@@ -52,9 +52,18 @@ class App extends Component {
         .then(res => {
           this.setState({
             litData: res.data,
-            apiDataLoaded: true,
           })
         })
+        .then(
+          axios.get(`https://data.cityofnewyork.us/resource/fhrw-4uyv.json?$where=incident_zip= "${zip}" 
+          AND incident_address= "${housenum} ${streetname}"&$order= created_date DESC`)
+          .then(res => {
+            this.setState({
+              nycData: res.data,
+              apiDataLoaded: true,
+            })
+          })
+        )
       )
     )
   }
@@ -62,7 +71,8 @@ class App extends Component {
 
   renderResults() {
     if(this.state.apiDataLoaded) {
-      return <Results  data={this.state.data} omoData={this.state.omoData} litData={this.state.litData}/>
+      return <Results  data={this.state.data} omoData={this.state.omoData} litData={this.state.litData}
+       nycData={this.state.nycData}/>
     } else {
       return <p>Loading...</p>
     }
